@@ -1,13 +1,7 @@
 #!/bin/bash
 
 # config for uploading things to Honeycomb
-export CUWB_ROUTABLE_IP=0.0.0.0
-export HONEYCOMB_URI=https://honeycomb.api.wildflower-tech.org/graphql
-export HONEYCOMB_TOKEN_URI=https://wildflowerschools.auth0.com/oauth/token
-export HONEYCOMB_AUDIENCE=https://honeycomb.api.wildflowerschools.org
-export HONEYCOMB_CLIENT_ID=CLIENT_ID
-export HONEYCOMB_CLIENT_SECRET=CLIENT_SECRET
-HONEYCOMB_ENVIRONMENT=ENVIRONMENT
+source /usr/lib/wildflower/cuwb_sensor/environment.env
 
 cd /data
 
