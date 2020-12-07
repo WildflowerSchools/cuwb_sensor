@@ -12,6 +12,10 @@ DATA_LOCATION=/data/
 echo "installing app at $APP_LOCATION"
 mkdir -p $APP_LOCATION
 
+echo "installing pip requirements"
+
+pip3 install -r requirements.txt
+
 cp -r cuwb_sensor $APP_LOCATION
 cp -r scripts/run.sh $APP_LOCATION
 cp -r environment.env $APP_LOCATION
@@ -50,13 +54,13 @@ cat <<EOF > /etc/logrotate.d/cuwb_sensor
 EOF
 
 
-ehco "installing uploader at $DATA_LOCATION"
+echo "installing uploader at $DATA_LOCATION"
 mkdir -p $DATA_LOCATION
 cp scripts/upload.sh $DATA_LOCATION
 
 
 echo "installing services"
-cp service/cuwb-sensor.service /etc/systemd/cuwb-sensor.service
+cp service/cuwb-sensor.service /etc/systemd/system/cuwb-sensor.service
 systemctl daemon-reload
 systemctl enable cuwb-sensor.service
 

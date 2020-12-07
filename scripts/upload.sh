@@ -37,15 +37,15 @@ do
     for ID in $UNIDS
     do 
         if [ -s "anchor_health-${START}-${ID}.mjson" ]; then
-            PYTHONPATH=$PYTHONPATH:/usr/lib/wildflower/cuwb_sensor/ python3 -m cuwb_sensor.tools upload --file "anchor_health-${START}-${ID}.mjson" --serial_number "${ID}" --start "${START}" --type anchor_health --environment_name_honeycomb "${HONEYCOMB_ENVIRONMENT}"
+            PYTHONPATH=$PYTHONPATH:/usr/lib/wildflower/cuwb_sensor/ /usr/bin/python3 -m cuwb_sensor.tools upload --file "anchor_health-${START}-${ID}.mjson" --serial_number "${ID}" --start "${START}" --type anchor_health --environment_name_honeycomb "${HONEYCOMB_ENVIRONMENT}"
             echo "$(date) --| $ID has $(cat "anchor_health-${START}-${ID}.mjson" | wc -l) anchor_health entries"
         fi
         if [ -s "position-${START}-${ID}.mjson" ]; then
-            PYTHONPATH=$PYTHONPATH:/usr/lib/wildflower/cuwb_sensor/ python3 -m cuwb_sensor.tools upload --file "position-${START}-${ID}.mjson" --serial_number "${ID}" --start "${START}" --type position --environment_name_honeycomb "${HONEYCOMB_ENVIRONMENT}"
+            PYTHONPATH=$PYTHONPATH:/usr/lib/wildflower/cuwb_sensor/ /usr/bin/python3 -m cuwb_sensor.tools upload --file "position-${START}-${ID}.mjson" --serial_number "${ID}" --start "${START}" --type position --environment_name_honeycomb "${HONEYCOMB_ENVIRONMENT}"
             echo "$(date) --| $ID has $(cat "position-${START}-${ID}.mjson" | wc -l) position entries"
         fi
         if [ -s "status-${START}-${ID}.mjson" ]; then
-            PYTHONPATH=$PYTHONPATH:/usr/lib/wildflower/cuwb_sensor/ python3 -m cuwb_sensor.tools upload --file "status-${START}-${ID}.mjson" --serial_number "${ID}" --start "${START}" --type status --environment_name_honeycomb "${HONEYCOMB_ENVIRONMENT}"
+            PYTHONPATH=$PYTHONPATH:/usr/lib/wildflower/cuwb_sensor/ /usr/bin/python3 -m cuwb_sensor.tools upload --file "status-${START}-${ID}.mjson" --serial_number "${ID}" --start "${START}" --type status --environment_name_honeycomb "${HONEYCOMB_ENVIRONMENT}"
             echo "$(date) --| $ID has $(cat "status-${START}-${ID}.mjson" | wc -l) status entries"
         fi
         # rm "filtered-${START}-${ID}.mjson"
