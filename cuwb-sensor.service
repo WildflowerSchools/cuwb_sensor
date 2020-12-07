@@ -1,0 +1,22 @@
+[Unit]
+Description=CUWB network collector for honeycomb
+Documentation=https://none.com
+After=network-online.target
+
+[Service]
+Type=notify
+EnvironmentFile=/etc/systemd/system/cuwb-sensor.service.env
+ExecStart=/bin/sh -c "exec /usr/lib/wildflower/cuwb_sensor/run.sh"
+
+KillMode=process
+Delegate=yes
+LimitNOFILE=infinity
+LimitNPROC=infinity
+LimitCORE=infinity
+TasksMax=infinity
+TimeoutStartSec=0
+Restart=always
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target

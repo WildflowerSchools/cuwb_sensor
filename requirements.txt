@@ -1,0 +1,6 @@
+cdp-py==1.4.0
+git+https://github.com/WildflowerSchools/database_connection.git
+git+https://github.com/WildflowerSchools/database_connection_honeycomb.git
+git+https://github.com/WildflowerSchools/graphql-python-client-generator.git
+git+https://github.com/WildflowerSchools/wildflower-honeycomb-sdk-py.git
+click==7.0
