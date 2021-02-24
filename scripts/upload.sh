@@ -66,23 +66,23 @@ do
         magnetometer_log_path="${SENSOR_LOG_UPLOAD_DIR}/magnetometer-${START}-${ID}.mjson"
 
         if [ -s "${anchor_health_log_path}" ]; then
-            #PYTHONPATH=$PYTHONPATH:/usr/lib/wildflower/cuwb_sensor/ /usr/bin/python3 -m cuwb_sensor.tools upload --file "${anchor_health_log_path}" --serial_number "${ID}" --start "${START}" --type anchor_health --environment_name_honeycomb "${HONEYCOMB_ENVIRONMENT}"
+            PYTHONPATH=$PYTHONPATH:/usr/lib/wildflower/cuwb_sensor/ /usr/bin/python3 -m cuwb_sensor.tools upload --file "${anchor_health_log_path}" --serial_number "${ID}" --start "${START}" --type anchor_health --environment_name_honeycomb "${HONEYCOMB_ENVIRONMENT}"
             echo "$(date) --| $ID has $(cat ${anchor_health_log_path} | wc -l) anchor_health entries"
         fi
         if [ -s "${position_log_path}" ]; then
-            #PYTHONPATH=$PYTHONPATH:/usr/lib/wildflower/cuwb_sensor/ /usr/bin/python3 -m cuwb_sensor.tools upload --file "${position_log_path}" --serial_number "${ID}" --start "${START}" --type position --environment_name_honeycomb "${HONEYCOMB_ENVIRONMENT}"
+            PYTHONPATH=$PYTHONPATH:/usr/lib/wildflower/cuwb_sensor/ /usr/bin/python3 -m cuwb_sensor.tools upload --file "${position_log_path}" --serial_number "${ID}" --start "${START}" --type position --environment_name_honeycomb "${HONEYCOMB_ENVIRONMENT}"
             echo "$(date) --| $ID has $(cat "${position_log_path}" | wc -l) position entries"
         fi
         if [ -s "${status_log_path}" ]; then
-            #PYTHONPATH=$PYTHONPATH:/usr/lib/wildflower/cuwb_sensor/ /usr/bin/python3 -m cuwb_sensor.tools upload --file "${status_log_path}" --serial_number "${ID}" --start "${START}" --type status --environment_name_honeycomb "${HONEYCOMB_ENVIRONMENT}"
+            PYTHONPATH=$PYTHONPATH:/usr/lib/wildflower/cuwb_sensor/ /usr/bin/python3 -m cuwb_sensor.tools upload --file "${status_log_path}" --serial_number "${ID}" --start "${START}" --type status --environment_name_honeycomb "${HONEYCOMB_ENVIRONMENT}"
             echo "$(date) --| $ID has $(cat "${status_log_path}" | wc -l) status entries"
         fi
         if [ -s "${gyroscope_log_path}" ]; then
-            #PYTHONPATH=$PYTHONPATH:/usr/lib/wildflower/cuwb_sensor/ /usr/bin/python3 -m cuwb_sensor.tools upload --file "${gyroscope_log_path}" --serial_number "${ID}" --start "${START}" --type status --environment_name_honeycomb "${HONEYCOMB_ENVIRONMENT}"
+            PYTHONPATH=$PYTHONPATH:/usr/lib/wildflower/cuwb_sensor/ /usr/bin/python3 -m cuwb_sensor.tools upload --file "${gyroscope_log_path}" --serial_number "${ID}" --start "${START}" --type status --environment_name_honeycomb "${HONEYCOMB_ENVIRONMENT}"
             echo "$(date) --| $ID has $(cat "${gyroscope_log_path}" | wc -l) gyroscope entries"
         fi
         if [ -s "${magnetometer_log_path}" ]; then
-            #PYTHONPATH=$PYTHONPATH:/usr/lib/wildflower/cuwb_sensor/ /usr/bin/python3 -m cuwb_sensor.tools upload --file "${magnetometer_log_path}" --serial_number "${ID}" --start "${START}" --type status --environment_name_honeycomb "${HONEYCOMB_ENVIRONMENT}"
+            PYTHONPATH=$PYTHONPATH:/usr/lib/wildflower/cuwb_sensor/ /usr/bin/python3 -m cuwb_sensor.tools upload --file "${magnetometer_log_path}" --serial_number "${ID}" --start "${START}" --type status --environment_name_honeycomb "${HONEYCOMB_ENVIRONMENT}"
             echo "$(date) --| $ID has $(cat "${magnetometer_log_path}" | wc -l) magnetometer entries"
         fi
         rm "${filtered_log_path}"
