@@ -7,7 +7,7 @@ After=network-online.target
 Type=notify
 ExecStart=/bin/sh -c "exec /usr/lib/wildflower/cuwb_sensor/run.sh"
 
-KillMode=process
+KillMode=mixed
 Delegate=yes
 LimitNOFILE=infinity
 LimitNPROC=infinity
