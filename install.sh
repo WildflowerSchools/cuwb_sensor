@@ -17,25 +17,14 @@ echo "installing pip requirements"
 pip3 install -r requirements.txt
 
 cp -r cuwb_sensor $APP_LOCATION
-cp -r scripts/run.sh $APP_LOCATION
 cp -r environment.env $APP_LOCATION
-
+cp -r scripts/network_health.sh $APP_LOCATION
+cp -r scripts/startnetwork.sh $APP_LOCATION
+cp -r scripts/stopnetwork.sh $APP_LOCATION
 
 echo "setting up logrotate for the logs"
 
 cat <<EOF > /etc/logrotate.d/cuwb_sensor
-/data/cuwb-sensor.log {
-  rotate 100
-  missingok
-  maxsize 50M
-  notifempty
-  create
-  postrotate
-    systemctl stop cuwb-sensor.service
-    systemctl restart cuwb-sensor.service
-  endscript
-}
-
 /data/scheduler.log {
   rotate 5
   missingok
@@ -53,19 +42,6 @@ cat <<EOF > /etc/logrotate.d/cuwb_sensor
 }
 EOF
 
-
-echo "installing uploader at $DATA_LOCATION"
-mkdir -p $DATA_LOCATION
-cp scripts/upload.sh $DATA_LOCATION
-
-
-echo "installing services"
-cp service/cuwb-sensor.service /etc/systemd/system/cuwb-sensor.service
-systemctl daemon-reload
-systemctl enable cuwb-sensor.service
-
-
-
 echo "setting up cron"
 
 cat <<EOF > /etc/cron.d/cuwb-sensor
@@ -76,7 +52,7 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 0 4 * * *    root /usr/lib/wildflower/cuwb_sensor/stopnetwork.sh >> /data/scheduler.log
 5 4 * * *    root /usr/lib/wildflower/cuwb_sensor/startnetwork.sh >> /data/scheduler.log
-*/5 * * * *    root /usr/lib/wildflower/cuwb_sensor/startnetwork.sh >> /data/network_health.log
+*/5 * * * *    root /usr/lib/wildflower/cuwb_sensor/network_health.sh >> /data/network_health.log
 EOF
 
 systemctl restart cron.service
