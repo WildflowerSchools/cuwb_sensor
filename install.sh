@@ -44,7 +44,7 @@ cat <<EOF > /etc/logrotate.d/cuwb_sensor
   create
 }
 
-/data/uploader.log {
+/data/network_health.log {
   rotate 5
   missingok
   maxsize 10M
@@ -74,8 +74,9 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 */10 * * * * root /usr/sbin/logrotate /etc/logrotate.conf
 
-4,14,24,34,44,54 * * * 1-5 root /data/upload.sh >> /data/uploader.log
-* * * * *    root /usr/lib/wildflower/cuwb_sensor/scheduler.sh >> /data/scheduler.log
+0 4 * * *    root /usr/lib/wildflower/cuwb_sensor/stopnetwork.sh >> /data/scheduler.log
+5 4 * * *    root /usr/lib/wildflower/cuwb_sensor/startnetwork.sh >> /data/scheduler.log
+*/5 * * * *    root /usr/lib/wildflower/cuwb_sensor/startnetwork.sh >> /data/network_health.log
 EOF
 
 systemctl restart cron.service
