@@ -1,3 +1,4 @@
+boto3~=1.17.73
 cdp-py==1.4.0
 git+https://github.com/WildflowerSchools/database_connection.git
 git+https://github.com/WildflowerSchools/database_connection_honeycomb.git

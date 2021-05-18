@@ -4,7 +4,9 @@ import socket
 import click
 
 from cuwb_sensor.collector import CUWBCollector
-from cuwb_sensor.network import ensure_network_is_running, ensure_network_is_stopped
+from cuwb_sensor.network_contract import AnchorsDegradedException, Contract
+from cuwb_sensor.tools.alert import send_email
+from cuwb_sensor.tools.logging import logger
 from cuwb_sensor.tools.snooplogg import DatabaseConnectionSnoop
 
 
@@ -98,10 +100,29 @@ def collect(ctx, consumer, environment_name_honeycomb=None, path_csv=None, ip=No
 @click.option('--name', help='name of the network')
 @click.option('--action', help='start or stop')
 def network(ctx, name, action):
+    contract = Contract(name)
     if action == "start":
-        ensure_network_is_running(name)
+        contract.ensure_network_is_running()
     elif action == "stop":
-        ensure_network_is_stopped(name)
+        contract.ensure_network_is_stopped()
+
+
+@main.command()
+@click.option('--name', help='name of the network')
+def check_network_health(name):
+    contract = Contract(name)
+    try:
+        contract.check_network_health()
+        logger.info(f"`{name}` network healthy")
+    except AnchorsDegradedException as e:
+        message = f"CUWB Network `{name}` reporting unexpected state:\n\n"
+        message += "\n\t•".join(e.error_messages)
+
+        send_email(to="innovation-alerts@wildflowerschools.org",
+                   subject=f"CUWB Network `{name}` in Degraded State",
+                   message=message)
+
+        logger.error(e)
 
 
 @main.command()
