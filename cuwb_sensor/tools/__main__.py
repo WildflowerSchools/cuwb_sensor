@@ -115,8 +115,9 @@ def check_network_health(name):
         contract.check_network_health()
         logger.info(f"`{name}` network healthy")
     except AnchorsDegradedException as e:
-        message = f"CUWB Network `{name}` reporting unexpected state:\n\n"
-        message += "\n\t•".join(e.error_messages)
+        message = f"CUWB Network '{name}' reporting unexpected state:\n\n"
+
+        message += "\n".join([f'\t• {err_msg}' for err_msg in e.error_messages])
 
         send_email(to="innovation-alerts@wildflowerschools.org",
                    subject=f"CUWB Network `{name}` in Degraded State",

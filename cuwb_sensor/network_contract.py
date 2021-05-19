@@ -20,7 +20,7 @@ class AnchorsDegradedException(Exception):
 
     def __init__(self, name, error_messages):
         self.error_messages = error_messages
-        super().__init__(f"Anchors at `{name}` in degraded state: {error_messages}")
+        super().__init__(f"Anchors at '{name}' in degraded state: {error_messages}")
 
 
 class Contract(object):
@@ -47,7 +47,7 @@ class Contract(object):
            stop=stop_after_attempt(3),
            reraise=True)
     def check_network_health(self):
-        logger.info("Checking `{}` network health...".format(self.name))
+        logger.info("Checking '{}' network health...".format(self.name))
 
         api = API()
         anchors = api.get_anchors(self.name)
@@ -63,11 +63,11 @@ class Contract(object):
             synchronization = a.get("synchronization_state", "")
 
             if not connectivity.lower() == "ethernet and uwb connected":
-                degraded_state_errors.append("Anchor `{}` reporting bad connectivity - `{}`".format(anchor_name, connectivity))
+                degraded_state_errors.append("Anchor '{}' reporting bad connectivity - `{}`".format(anchor_name, connectivity))
 
             if not synchronization.lower() == "rx and tx synced":
-                degraded_state_errors.append("Anchor `{}` reporting bad synchronization - `{}`".format(anchor_name, synchronization))
+                degraded_state_errors.append("Anchor '{}' reporting bad synchronization - `{}`".format(anchor_name, synchronization))
 
         if len(degraded_state_errors) > 0:
-            logger.error("`{}` network health degraded: {}".format(self.name, degraded_state_errors))
+            logger.error("'{}' network health degraded: {}".format(self.name, degraded_state_errors))
             raise AnchorsDegradedException(self.name, degraded_state_errors)
